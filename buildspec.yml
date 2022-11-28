@@ -14,8 +14,8 @@ phases:
   build:
     commands:
       # use Build phase to build your artifacts (compile, etc.)
-      - aws cloudformation deploy --template-file ./templates/cloudfront-s3-bucket.yaml --stack-name myproject-app-$ENV_STAGE-cloudfront-s3-bucket --s3-bucket $DEPLOYMENT_BUCKET_NAME --parameter-overrides $(cat myproject-app-cloudfront-s3-bucket.$ENV_STAGE.properties) --capabilities CAPABILITY_NAMED_IAM --no-fail-on-empty-changeset
+      - aws cloudformation deploy --template-file ./templates/cloudfront-s3-bucket.yaml --stack-name mydemoproject-app-$ENV_STAGE-cloudfront-s3-bucket --s3-bucket $DEPLOYMENT_BUCKET_NAME --parameter-overrides $(cat myproject-app-cloudfront-s3-bucket.$ENV_STAGE.properties) --capabilities CAPABILITY_NAMED_IAM --no-fail-on-empty-changeset
 
-artifacts:
-  files:
-    - template.yaml
+# artifacts:
+#   files:
+#     - template.yaml
