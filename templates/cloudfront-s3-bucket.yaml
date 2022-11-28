@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Parameters:
+  WebAppBucketName:
+    Description: S3Bucket Name for Frond End files
+    Type: String
+  TagStackType:
+    Type: String
+    Default: POC
+    Description: (Required) Enter poc,dev,uat,prod. Default is poc
+    AllowedValues:
+      - POC
+      - Dev
+      - UAT
+      - PROD
+
+Resources:
+# The following  will create a S3 bucket for the frontend files
+
+  WebAppBucket:
+    Type: AWS::S3::Bucket
+    # DeletePolicy: "Retain"
+    Properties:
+      BucketName: !Ref WebAppBucketName
+      # AccessControl: PublicRead
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'AES256'
+      WebsiteConfiguration:
+        ErrorDocument: 'error.html'
+        IndexDocument: 'index.html'
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      #LoggingConfiguration:
+      #  DestinationBucketName: !Sub 'aiolos-accesslog${AWS::AccountId}-${AWS::Region}'
+      #  LogFilePrefix: 'myproject-web-app/'
+      Tags:
+        - Key: Name
+          Value: !Ref WebAppBucketName
+        - Key: Purpose
+          Value: 'S3 Bucket to Store MYProject UI Files'
+        - Key: Role
+          Value: 'S3 bucket to store MYProject UI Files'   
+        - Key: Stack
+          Value: !Ref TagStackType
+        - Key: Application Support
+          Value: chinmay 
+        - Key: PID
+          Value: "0001"
+        - Key: Owner
+          Value: chinmay
+        - Key: Owner Supervisor
+          Value: chinmay
+        - Key: Project Name
+          Value: MYProject
+        - Key: Business Vertical
+          Value: product
